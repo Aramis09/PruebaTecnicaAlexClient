@@ -1,0 +1,13 @@
+.container{
+  p {
+    min-width: 5rem;
+  }
+  img {
+    width: 2rem;
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+}
