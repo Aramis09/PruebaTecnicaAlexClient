@@ -4,26 +4,28 @@ import s from "./createOperation.module.css";
 import { useMutationCustom } from "../../hooks/useMutationCustom";
 import {
   BodyCreateOperation,
-  ResCreateOperationData,
+  ResCreateOperation,
 } from "../../interfaces/interfaces";
 import { Button, Form, H2, Input } from "../../style/styles";
 import { useContextAuth } from "../../hooks/useContextAuth";
 import GuestModal from "../../components/guestModal/guestModal";
 import { getCookie } from "../../utils/cookies";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateOperation() {
   const { userId } = useContextAuth();
+  const navigate = useNavigate();
   const idSavedLocalStorage = useRef(localStorage.getItem("idUser"));
-
-  console.log(userId);
 
   const operationMutate = useMutationCustom<
     BodyCreateOperation,
-    ResCreateOperationData
+    ResCreateOperation
   >({
     url: `${import.meta.env.VITE_SOME_BASE_URL}/crypto-coin-operations`,
     method: "POST",
+    keys: [],
   });
+  console.log(operationMutate.data);
 
   const hanlderSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -49,6 +51,9 @@ export default function CreateOperation() {
   )
     return <GuestModal />;
 
+  if (operationMutate.data?.status === 200) {
+    navigate("/");
+  }
   return (
     <div className={s.container}>
       <H2>Guardar nueva operacion</H2>
