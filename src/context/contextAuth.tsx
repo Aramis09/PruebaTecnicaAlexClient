@@ -6,7 +6,9 @@ interface Props {
 }
 
 export const ContextAuthProvider = ({ children }: Props) => {
-  const [userId, setUserId] = useState<string>();
+  const [userId, setUserId] = useState<string | undefined>(
+    localStorage.getItem("idUser") || undefined
+  );
   const [token, setToken] = useState<string>();
 
   const state = {
